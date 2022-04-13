@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+    name: sssd-host
+spec:
+    containers:
+      - name: sssd-host
+        image: vampir/devopsing:sssd_host
+        ports:
+          - containerPort: 53
+          - containerPort: 389
+          - containerPort: 636
+          - containerPort: 88
+

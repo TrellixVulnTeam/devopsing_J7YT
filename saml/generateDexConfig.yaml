@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: dex-secret-generator
+spec:
+  template:
+    spec:
+      serviceAccountName: dex-secret-generator
+      containers:
+        - name: script
+          image: kubernetes-python
+          imagePullPolicy: IfNotPresent
+          command: ["bash"]
+          args:
+            - "/mnt/dex-secret-generator/script.sh"
+          volumeMounts:
+            - mountPath: /mnt/dex-secret-generator
+              name: dex-secret-generator
+      volumes:
+        - name: dex-secret-generator
+          configMap:
+            name: dex-secret-generator
+      restartPolicy: Never
